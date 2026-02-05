@@ -5,79 +5,90 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kiet Lam - Senior Data Engineer</title>
-  <meta name="description" content="Portfolio" />
+  <meta name="description"
+    content="Senior Data Engineer specializing in data warehousing, ETL pipelines, and cloud analytics solutions. Portfolio of projects showcasing expertise in Snowflake, Databricks, and Azure." />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-  <!-- Google Fonts -->
+  <!-- Preconnect to external resources for faster loading -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="profile.webp">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts optimized with font-display swap for instant text rendering -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    media="print" onload="this.media='all';this.onload=null">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  </noscript>
+
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-          },
-          colors: {
-            primary: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-              900: '#0c4a6e',
-            }
-          }
-        },
-      },
-    }
+    // Initialize theme IMMEDIATELY to prevent flash
+    (function () {
+      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
   </script>
 
-  <!-- Import Map: Defines where to load modules from. Strictly pinned to React 18. -->
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0?deps=react@18.2.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/"
-  }
-}
-</script>
-
-  <!-- Babel for JSX compilation in browser -->
-
+  <script>
+    window.tailwind = {
+      config: {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                700: '#0369a1',
+                900: '#0c4a6e',
+              }
+            }
+          },
+        },
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.18/dist/index.global.js" crossorigin="anonymous"
+    defer></script>
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+    </style>
   <style>
+    /* Critical CSS for LCP optimization */
     body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    #root {
-      flex: 1;
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #1e293b;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
+    .dark h1 {
+      color: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 3.75rem;
       }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-fade-in {
-      animation: fadeIn 1s ease-out;
     }
   </style>
 </head>
@@ -86,36 +97,92 @@
   class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-primary-500 selection:text-white">
   <div id="root"></div>
 
-  <!-- Vanilla JavaScript - No React, No Babel -->
   <script>
     const PROFILE_DATA = {
-      "name": "Kiet Lam",
-      "title": "Senior Data Engineer",
-      "tagline": "Turn your data into actionable insights!",
-      "avatarUrl": "profile.jpg",
-      "about": "With a background in software engineering and a passion for data analytics, I design and deploy scalable end-to-end data solutions that drive measurable value for clients.",
-      "socials": [
-        { "platform": "linkedin", "url": "https://www.linkedin.com/in/kietlam96", "displayText": "LinkedIn" },
-        { "platform": "github", "url": "https://github.com/dylanlam0402", "displayText": "GitHub" },
-        { "platform": "email", "url": "mailto:dylanlam0402@gmail.com", "displayText": "dylanlam0402@gmail.com" },
-        { "platform": "phone", "url": "tel:+1234567890", "displayText": "+1 (234) 567-890" }
+      name: "Kiet Lam",
+      title: "Senior Data Engineer",
+      tagline: "Turn your data into actionable insights!",
+      avatarUrl: "profile.webp",
+      about: "With a background in software engineering and a passion for data analytics, I design and deploy scalable end-to-end data solutions that drive measurable value for clients.",
+      socials: [
+        { platform: "linkedin", url: "https://www.linkedin.com/in/kietlam96", displayText: "LinkedIn" },
+        { platform: "github", url: "https://github.com/dylanlam0402", displayText: "GitHub" },
+        { platform: "email", url: "mailto:dylanlam0402@gmail.com", displayText: "dylanlam0402@gmail.com" },
+        { platform: "phone", url: "tel:+1234567890", displayText: "+1 (234) 567-890" }
       ],
-      "skills": [
-        { "category": "Data Engineering & Architecture", "items": ["Data Engineering", "Data Modeling", "Data Architecture", "Data Lakehouse", "Data Warehousing", "Extract, Transform, Load (ETL)", "Data Migration"] },
-        { "category": "Cloud & Platforms", "items": ["Snowflake Cloud", "Azure Databricks", "Microsoft Azure", "Amazon Web Services (AWS)", "Apache Airflow"] },
-        { "category": "Databases", "items": ["SQL", "Microsoft SQL Server", "PostgreSQL", "MySQL", "Vertica"] },
-        { "category": "Programming Languages", "items": ["Python", "Java", "Ruby", "JavaScript", "SQL"] },
-        { "category": "BI & Analytics", "items": ["Microsoft Power BI", "Sisense", "GoodData", "Pentaho", "SQL Server Reporting Services (SSRS)", "Data Analysis"] }
+      skills: [
+        { category: "Data Engineering & Architecture", items: ["Data Engineering", "Data Modeling", "Data Architecture", "Data Lakehouse", "Data Warehousing", "Extract, Transform, Load (ETL)", "Data Migration"] },
+        { category: "Cloud & Platforms", items: ["Snowflake Cloud", "Azure Databricks", "Microsoft Azure", "Amazon Web Services (AWS)", "Apache Airflow"] },
+        { category: "Databases", items: ["SQL", "Microsoft SQL Server", "PostgreSQL", "MySQL", "Vertica"] },
+        { category: "Programming Languages", items: ["Python", "Java", "Ruby", "JavaScript", "SQL"] },
+        { category: "BI & Analytics", items: ["Microsoft Power BI", "Sisense", "GoodData", "Pentaho", "SQL Server Reporting Services (SSRS)", "Data Analysis"] }
       ],
-      "experience": [
-        { "id": "exp-1", "company": "Seven Peaks", "role": "Senior Data Engineer", "period": "Jul 2023 - Present", "description": ["Served as a Data Architect, providing consultation and implementing Data Warehouse, Data Lake, and Data Lakehouse solutions for Thai SMEs.", "Designed and deployed a Data Lakehouse solution for Thailand's largest telecommunications provider.", "Consulted and executed data migration involving over 50,000 clients and 100 million transactions in the financial services industry."], "logoUrl": "https://ui-avatars.com/api/?name=SP&background=0ea5e9&color=fff&size=128" },
-        { "id": "exp-2", "company": "KMS Solutions, Inc.", "role": "Senior Data Engineer", "period": "Jun 2019 - Apr 2023", "description": ["Consulted, built, and maintained end-to-end data solutions and robust, scalable data pipelines.", "Participated in data warehouse design and contributed to report/dashboard ideation to support business decisions.", "Provided customer support, communicating directly with US and EU customers about technical solutions."], "logoUrl": "https://ui-avatars.com/api/?name=KMS&background=6366f1&color=fff&size=128" },
-        { "id": "exp-3", "company": "KMS Solutions, Inc.", "role": "Software Engineer", "period": "Jul 2017 - Jun 2019", "description": ["Built and maintained data migration tools to move data and reports from legacy systems to new platforms.", "Provided Application Integration solutions, including developing SSO connections and embedded reports.", "Utilized a technical stack including Java, SQL Server, PostgreSQL, SSRS, and Pentaho."], "logoUrl": "https://ui-avatars.com/api/?name=KMS&background=ec4899&color=fff&size=128" }
+      experience: [
+        {
+          id: "exp-1",
+          company: "Seven Peaks",
+          role: "Senior Data Engineer",
+          period: "Jul 2023 - Present",
+          description: [
+            "Served as a Data Architect, providing consultation and implementing Data Warehouse, Data Lake, and Data Lakehouse solutions for Thai SMEs.",
+            "Designed and deployed a Data Lakehouse solution for Thailand's largest telecommunications provider.",
+            "Consulted and executed data migration involving over 50,000 clients and 100 million transactions in the financial services industry."
+          ],
+          logoUrl: "https://ui-avatars.com/api/?name=SP&background=0ea5e9&color=fff&size=128"
+        },
+        {
+          id: "exp-2",
+          company: "KMS Solutions, Inc.",
+          role: "Senior Data Engineer",
+          period: "Jun 2019 - Apr 2023",
+          description: [
+            "Consulted, built, and maintained end-to-end data solutions and robust, scalable data pipelines.",
+            "Participated in data warehouse design and contributed to report/dashboard ideation to support business decisions.",
+            "Provided customer support, communicating directly with US and EU customers about technical solutions."
+          ],
+          logoUrl: "https://ui-avatars.com/api/?name=KMS&background=6366f1&color=fff&size=128"
+        },
+        {
+          id: "exp-3",
+          company: "KMS Solutions, Inc.",
+          role: "Software Engineer",
+          period: "Jul 2017 - Jun 2019",
+          description: [
+            "Built and maintained data migration tools to move data and reports from legacy systems to new platforms.",
+            "Provided Application Integration solutions, including developing SSO connections and embedded reports.",
+            "Utilized a technical stack including Java, SQL Server, PostgreSQL, SSRS, and Pentaho."
+          ],
+          logoUrl: "https://ui-avatars.com/api/?name=KMS&background=ec4899&color=fff&size=128"
+        }
       ],
-      "projects": [
-        { "id": "proj-1", "title": "Visa Destination Insights", "description": "A comprehensive analytics dashboard for tracking spending with VisaVue products.", "techStack": ["GoodData", "Vertica", "Ruby", "SQL"], "imageUrl": "https://picsum.photos/600/400?random=1", "repoUrl": "#", "liveUrl": "https://corporate.visa.com/en/products/visa-destination-insights.html" },
-        { "id": "proj-2", "title": "Fraud Detection Data Solution", "description": "End-to-end data solution for credit-card fraud detection.", "techStack": ["Vertica", "Python", "Tensorflow"], "imageUrl": "https://picsum.photos/600/400?random=2", "repoUrl": "#", "liveUrl": "#" },
-        { "id": "proj-3", "title": "AI For Inventory", "description": "Datamart for an AI-powered supply chain management (SCM) solution.", "techStack": ["BigQuery", "Dataform", "GCP", "KubeFlow"], "imageUrl": "https://www.hotwaxsystems.com/hubfs/Imported_Blog_Media/AdobeStock_459155812-scaled-3.jpeg", "repoUrl": "#", "liveUrl": "#" }
+      projects: [
+        {
+          id: "proj-1",
+          title: "Visa Destination Insights",
+          description: "A comprehensive analytics dashboard for tracking spending with VisaVue products.",
+          techStack: ["GoodData", "Vertica", "Ruby", "SQL"],
+          imageUrl: "https://picsum.photos/id/0/361/240.webp",
+          repoUrl: "#",
+          liveUrl: "https://corporate.visa.com/en/products/visa-destination-insights.html"
+        },
+        {
+          id: "proj-2",
+          title: "Fraud Detection Data Solution",
+          description: "End-to-end data solution for credit-card fraud detection.",
+          techStack: ["Vertica", "Python", "Tensorflow"],
+          imageUrl: "https://picsum.photos/id/9/361/240.webp",
+          repoUrl: "#",
+          liveUrl: "#"
+        },
+        {
+          id: "proj-3",
+          title: "AI For Inventory",
+          description: "Datamart for an AI-powered supply chain management (SCM) solution.",
+          techStack: ["BigQuery", "Dataform", "GCP", "KubeFlow"],
+          imageUrl: "https://picsum.photos/id/20/361/240.webp",
+          repoUrl: "#",
+          liveUrl: "#"
+        }
       ]
     };
 
@@ -124,149 +191,13 @@
       moon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
       linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>',
       github: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
-      mail: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>',
+      email: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>',
       phone: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
       arrowUp: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>'
     };
 
     function getIconSvg(platform) {
-      return icons[platform === 'email' ? 'mail' : platform] || '';
-    }
-
-    function renderPortfolio() {
-      const root = document.getElementById('root');
-      const { name, title, tagline, avatarUrl, about, socials, skills, experience, projects } = PROFILE_DATA;
-
-      root.innerHTML = `
-        <button id="theme-toggle" class="fixed top-5 right-5 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:scale-110 transition-transform shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500" aria-label="Toggle theme">
-          ${icons.moon}
-        </button>
-
-        <section class="min-h-screen flex items-center justify-center pt-20 pb-10 px-4 sm:px-8 animate-fade-in">
-          <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-10 md:gap-16">
-            <div class="flex-shrink-0">
-              <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-700 shadow-2xl">
-                <img src="${avatarUrl}" alt="${name}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
-              </div>
-            </div>
-            <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-              <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white tracking-tight">${name}</h1>
-              <h2 class="text-xl md:text-2xl font-semibold text-primary-600 dark:text-primary-400">${title}</h2>
-              <p class="text-lg text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed">${tagline}</p>
-              <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-                ${socials.map(s => `<a href="${s.url}" ${s.platform !== 'email' && s.platform !== 'phone' ? 'target="_blank" rel="noreferrer"' : ''} class="p-3 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-md hover:shadow-lg hover:text-primary-600 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300" aria-label="${s.platform}">${getIconSvg(s.platform)}</a>`).join('')}
-              </div>
-              <div class="pt-6">
-                <a href="#contact" class="px-8 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-semibold rounded-full shadow-lg hover:opacity-90 transition-opacity">Get in Touch</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" class="py-20 px-4 sm:px-8 bg-white dark:bg-slate-800/50">
-          <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center text-slate-900 dark:text-white">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-10">
-              <div class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
-                <p>${about}</p>
-                <p>I believe in the power of continuous learning and staying updated with the latest industry trends. My approach combines technical expertise with a keen eye for design, ensuring every product I build is not only functional but also delightful to use.</p>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                ${skills.map(group => `
-                  <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
-                    <h3 class="font-bold text-lg mb-3 text-primary-700 dark:text-primary-400 border-b border-slate-200 dark:border-slate-700 pb-2">${group.category}</h3>
-                    <ul class="space-y-2">
-                      ${group.items.map(skill => `<li class="flex items-center text-slate-600 dark:text-slate-300 text-sm"><span class="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>${skill}</li>`).join('')}
-                    </ul>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="experience" class="py-20 px-4 sm:px-8 bg-slate-50 dark:bg-slate-900">
-          <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white">Work Experience</h2>
-            <div class="space-y-12">
-              ${experience.map((job, idx) => `
-                <div class="relative pl-8 md:pl-0">
-                  <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700 transform -translate-x-1/2"></div>
-                  <div class="flex flex-col md:flex-row items-center justify-between ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''} gap-8">
-                    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-slate-800 border-4 border-primary-500 shadow-lg z-10 overflow-hidden">
-                      <img src="${job.logoUrl}" alt="${job.company}" class="w-full h-full object-cover" />
-                    </div>
-                    <div class="w-full md:w-5/12 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all">
-                      <div class="flex items-center gap-3 mb-2 md:mb-1">
-                        <img src="${job.logoUrl}" alt="${job.company}" class="w-10 h-10 rounded-full object-cover md:hidden border border-slate-200 dark:border-slate-600" />
-                        <div>
-                          <div class="md:hidden text-sm text-primary-600 dark:text-primary-400 font-semibold">${job.period}</div>
-                          <h3 class="text-xl font-bold text-slate-800 dark:text-white">${job.role}</h3>
-                        </div>
-                      </div>
-                      <h4 class="text-lg text-slate-600 dark:text-slate-300 mb-4 font-medium">${job.company}</h4>
-                      <ul class="space-y-2">
-                        ${job.description.map(desc => `<li class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed list-disc list-outside ml-4">${desc}</li>`).join('')}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </section>
-
-        <section id="projects" class="py-20 px-4 sm:px-8 bg-white dark:bg-slate-800/50">
-          <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white">Featured Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              ${projects.map(proj => `
-                <div class="group h-full bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all border border-slate-100 dark:border-slate-700 flex flex-col">
-                  <div class="relative overflow-hidden h-48">
-                    <img src="${proj.imageUrl}" alt="${proj.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">${proj.title}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-grow">${proj.description}</p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                      ${proj.techStack.map(tech => `<span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-md font-medium">${tech}</span>`).join('')}
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </section>
-
-        <footer id="contact" class="bg-slate-900 text-white pt-20 pb-10 px-4">
-          <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-6">Let's Connect</h2>
-            <p class="text-slate-400 mb-10 max-w-xl mx-auto">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you.</p>
-            <a href="mailto:dylanlam0402@gmail.com" class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg">
-              ${icons.mail}
-              Say Hello
-            </a>
-            <div class="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-              <div class="text-slate-500 text-sm">&copy; <span id="year"></span> ${name}. All rights reserved.</div>
-              <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-full text-slate-300 transition-colors" aria-label="Scroll to top">
-                ${icons.arrowUp}
-              </button>
-            </div>
-          </div>
-        </footer>
-      `;
-
-      document.getElementById('year').textContent = new Date().getFullYear();
-      setupThemeToggle();
-    }
-
-    function initTheme() {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      }
-      updateThemeIcon();
+      return icons[platform] || '';
     }
 
     function updateThemeIcon() {
@@ -278,21 +209,184 @@
 
     function setupThemeToggle() {
       const toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', () => {
-          document.documentElement.classList.toggle('dark');
-          localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-          updateThemeIcon();
-        });
-        initTheme();
+      if (!toggle) {
+        console.error('Theme toggle button not found');
+        return;
+      }
+
+      toggle.addEventListener('click', function () {
+        // Toggle icons and dark class
+        if (localStorage.getItem('color-theme')) {
+          if (localStorage.getItem('color-theme') === 'light') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+          }
+        } else {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+          }
+        }
+        updateThemeIcon();
+      });
+
+      updateThemeIcon();
+    }
+
+    function renderPortfolio() {
+      const root = document.getElementById('root');
+      if (!root) return;
+
+      const { name, title, tagline, avatarUrl, about, socials, skills, experience, projects } = PROFILE_DATA;
+      // Cache theme state before any DOM manipulation to avoid forced reflow
+      const isDark = document.documentElement.classList.contains('dark');
+      const initialThemeIcon = isDark ? icons.sun : icons.moon;
+
+      root.innerHTML = `
+    <button id="theme-toggle" class="fixed top-5 right-5 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:scale-110 transition-transform shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500" aria-label="Toggle theme">
+      ${initialThemeIcon}
+    </button>
+
+    <main>
+    <section class="min-h-screen flex items-center justify-center pt-20 pb-10 px-4 sm:px-8 animate-fade-in">
+      <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-10 md:gap-16">
+        <div class="flex-shrink-0">
+          <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-700 shadow-2xl">
+            <img src="${avatarUrl}" alt="${name} - Senior Data Engineer" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" fetchpriority="high" onerror="this.style.display='none'" />
+          </div>
+        </div>
+        <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+          <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white tracking-tight">${name}</h1>
+          <h2 class="text-xl md:text-2xl font-semibold text-primary-600 dark:text-primary-400">${title}</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed">${tagline}</p>
+          <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+            ${socials.map(s => `<a href="${s.url}" ${s.platform !== "email" && s.platform !== "phone" ? "target=\"_blank\" rel=\"noreferrer\"" : ""} class="p-3 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-md hover:shadow-lg hover:text-primary-600 dark:hover:text-primary-400 hover:-translate-y-1 transition-all duration-300" aria-label="${s.platform}">${getIconSvg(s.platform)}</a>`).join("")}
+          </div>
+          <div class="pt-6">
+            <a href="#contact" class="px-8 py-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-semibold rounded-full shadow-lg hover:opacity-90 transition-opacity">Get in Touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 sm:px-8 bg-white dark:bg-slate-800/50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-8 text-center text-slate-900 dark:text-white">About Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-10">
+          <div class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+            <p>${about}</p>
+            <p>I believe in the power of continuous learning and staying updated with the latest industry trends. My approach combines technical expertise with a keen eye for design, ensuring every product I build is not only functional but also delightful to use.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            ${skills.map(group => `
+              <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+                <h3 class="font-bold text-lg mb-3 text-primary-700 dark:text-primary-400 border-b border-slate-200 dark:border-slate-700 pb-2">${group.category}</h3>
+                <ul class="space-y-2">
+                  ${group.items.map(skill => `<li class="flex items-center text-slate-600 dark:text-slate-300 text-sm"><span class="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></span>${skill}</li>`).join("")}
+                </ul>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-20 px-4 sm:px-8 bg-slate-50 dark:bg-slate-900">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white">Work Experience</h2>
+        <div class="space-y-12">
+          ${experience.map((job, idx) => `
+            <div class="relative pl-8 md:pl-0">
+              <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700 transform -translate-x-1/2"></div>
+              <div class="flex flex-col md:flex-row items-center justify-between ${idx % 2 === 0 ? "md:flex-row-reverse" : ""} gap-8">
+                <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-slate-800 border-4 border-primary-500 shadow-lg z-10 overflow-hidden">
+                  <img src="${job.logoUrl}" alt="${job.company} logo" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+                </div>
+                <div class="w-full md:w-5/12 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all">
+                  <div class="flex items-center gap-3 mb-2 md:mb-1">
+                    <img src="${job.logoUrl}" alt="${job.company} logo" class="w-10 h-10 rounded-full object-cover md:hidden border border-slate-200 dark:border-slate-600" onerror="this.style.display='none'" />
+                    <div>
+                      <div class="md:hidden text-sm text-primary-600 dark:text-primary-400 font-semibold">${job.period}</div>
+                      <h3 class="text-xl font-bold text-slate-800 dark:text-white">${job.role}</h3>
+                    </div>
+                  </div>
+                  <h4 class="text-lg text-slate-600 dark:text-slate-300 mb-4 font-medium">${job.company}</h4>
+                  <ul class="space-y-2">
+                    ${job.description.map(desc => `<li class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed list-disc list-outside ml-4">${desc}</li>`).join("")}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="py-20 px-4 sm:px-8 bg-white dark:bg-slate-800/50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center text-slate-900 dark:text-white">Featured Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          ${projects.map(proj => `
+            <div class="group h-full bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all border border-slate-100 dark:border-slate-700 flex flex-col">
+              <div class="relative overflow-hidden h-48 bg-slate-200 dark:bg-slate-700">
+                <img src="${proj.imageUrl}" alt="${proj.title} project screenshot" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" onerror="this.style.opacity='0.3'" />
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">${proj.title}</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-grow">${proj.description}</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                  ${proj.techStack.map(tech => `<span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-md font-medium">${tech}</span>`).join("")}
+                </div>
+                ${proj.repoUrl && proj.repoUrl !== "#" || proj.liveUrl && proj.liveUrl !== "#" ? `
+                <div class="flex gap-3 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                  ${proj.repoUrl && proj.repoUrl !== "#" ? `<a href="${proj.repoUrl}" target="_blank" rel="noreferrer" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">View Code →</a>` : ""}
+                  ${proj.liveUrl && proj.liveUrl !== "#" ? `<a href="${proj.liveUrl}" target="_blank" rel="noreferrer" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">Live Demo →</a>` : ""}
+                </div>
+                ` : ""}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    </section>
+    </main>
+
+    <footer id="contact" class="bg-slate-900 text-white pt-20 pb-10 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Let's Connect</h2>
+        <p class="text-slate-400 mb-10 max-w-xl mx-auto">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you.</p>
+        <a href="mailto:dylanlam0402@gmail.com" class="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg">
+          ${icons.email}
+          Say Hello
+        </a>
+        <div class="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div class="text-slate-500 text-sm">&copy; <span id="year"></span> ${name}. All rights reserved.</div>
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-full text-slate-300 transition-colors" aria-label="Scroll to top">
+            ${icons.arrowUp}
+          </button>
+        </div>
+      </div>
+    </footer>
+  `;
+      setupThemeToggle();
+    }
+
+    function startApp() {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderPortfolio);
+      } else {
+        renderPortfolio();
+
       }
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderPortfolio);
-    } else {
-      renderPortfolio();
-    }
+    startApp();
   </script>
 </body>
 
