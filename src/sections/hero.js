@@ -18,7 +18,7 @@ export function renderHero(data) {
     </button>
 
     <section class="min-h-screen flex items-center justify-center pt-20 pb-10 px-4 sm:px-8">
-      <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-10 md:gap-16">
+      <div class="max-w-4xl w-full flex flex-col items-center gap-10">
         <div class="flex-shrink-0">
           <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-700 shadow-2xl">
             <img src="${avatarUrl}" alt="${name} - Senior Data Engineer"
@@ -26,11 +26,11 @@ export function renderHero(data) {
               fetchpriority="high" onerror="this.style.display='none'" />
           </div>
         </div>
-        <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+        <div class="flex flex-col items-center text-center space-y-4">
           <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white tracking-tight">${name}</h1>
           <h2 class="text-xl md:text-2xl font-semibold text-primary-600 dark:text-primary-400">${title}</h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed">${tagline}</p>
-          <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+          <div class="flex flex-wrap justify-center gap-4 pt-4">
             ${socials
             .map(
                 (s) =>

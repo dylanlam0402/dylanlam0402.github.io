@@ -137,7 +137,7 @@ export const PROFILE_DATA = {
             title: "Fraud Detection Data Solution",
             description:
                 "End-to-end data solution for credit-card fraud detection.",
-            techStack: ["Vertica", "Python", "Tensorflow"],
+            techStack: ["Vertica", "Python", "TensorFlow", "GoodData"],
             imageUrl: "https://picsum.photos/id/9/361/240.webp",
             repoUrl: "#",
             liveUrl: "#",
