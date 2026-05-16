@@ -81,7 +81,6 @@ export const PROFILE_DATA = {
     ],
     experience: [
         {
-            id: "exp-1",
             company: "Seven Peaks",
             role: "Senior Data Engineer",
             period: "Jul 2023 - Present",
@@ -94,7 +93,6 @@ export const PROFILE_DATA = {
                 "https://ui-avatars.com/api/?name=SP&background=0ea5e9&color=fff&size=128",
         },
         {
-            id: "exp-2",
             company: "KMS Solutions, Inc.",
             role: "Senior Data Engineer",
             period: "Jun 2019 - Apr 2023",
@@ -107,7 +105,6 @@ export const PROFILE_DATA = {
                 "https://ui-avatars.com/api/?name=KMS&background=6366f1&color=fff&size=128",
         },
         {
-            id: "exp-3",
             company: "KMS Solutions, Inc.",
             role: "Software Engineer",
             period: "Jul 2017 - Jun 2019",
@@ -122,35 +119,32 @@ export const PROFILE_DATA = {
     ],
     projects: [
         {
-            id: "proj-1",
             title: "Visa Destination Insights",
             description:
                 "A comprehensive analytics dashboard for tracking spending with VisaVue products.",
             techStack: ["GoodData", "Vertica", "Ruby", "SQL"],
-            imageUrl: "https://picsum.photos/id/0/361/240.webp",
-            repoUrl: "#",
+            imageUrl: "https://placehold.co/361x240/webp?text=Visa+Destination+Insights",
+            repoUrl: null,
             liveUrl:
                 "https://corporate.visa.com/en/products/visa-destination-insights.html",
         },
         {
-            id: "proj-2",
             title: "Fraud Detection Data Solution",
             description:
                 "End-to-end data solution for credit-card fraud detection.",
             techStack: ["Vertica", "Python", "Tensorflow"],
-            imageUrl: "https://picsum.photos/id/9/361/240.webp",
-            repoUrl: "#",
-            liveUrl: "#",
+            imageUrl: "https://placehold.co/361x240/webp?text=Fraud+Detection",
+            repoUrl: null,
+            liveUrl: null,
         },
         {
-            id: "proj-3",
             title: "AI For Inventory",
             description:
                 "Datamart for an AI-powered supply chain management (SCM) solution.",
             techStack: ["BigQuery", "Dataform", "GCP", "KubeFlow"],
-            imageUrl: "https://picsum.photos/id/20/361/240.webp",
-            repoUrl: "#",
-            liveUrl: "#",
+            imageUrl: "https://placehold.co/361x240/webp?text=AI+For+Inventory",
+            repoUrl: null,
+            liveUrl: null,
         },
     ],
 };
