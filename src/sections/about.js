@@ -7,9 +7,9 @@ export function renderAbout(data) {
     const { about, aboutExtra, skills } = data;
 
     return `
-    <section id="about" class="py-20 px-4 sm:px-8 bg-white dark:bg-slate-800/50">
+    <section id="about" class="section bg-white dark:bg-slate-800/50">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-8 text-center text-slate-900 dark:text-white">About Me</h2>
+        <h2 class="section-heading mb-8">About Me</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-10">
           <div class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
             <p>${about}</p>
@@ -19,7 +19,7 @@ export function renderAbout(data) {
             ${skills
             .map(
                 (group) => `
-              <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+              <div class="card bg-slate-50 dark:bg-slate-800 p-6 shadow-sm hover:shadow-md">
                 <h3 class="font-bold text-lg mb-3 text-primary-700 dark:text-primary-400 border-b border-slate-200 dark:border-slate-700 pb-2">${group.category}</h3>
                 <ul class="space-y-2">
                   ${group.items

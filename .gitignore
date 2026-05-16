@@ -13,3 +13,5 @@ yarn-error.log*
 .next/
 .nuxt/
 coverage/
+.claude/
+.playwright-mcp/
