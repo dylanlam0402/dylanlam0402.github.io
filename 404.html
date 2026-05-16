@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,16 @@
     <title>404 Not Found | Kiet Lam</title>
     <meta name="description"
         content="Page not found - This page does not exist or has been moved. Return to Kiet Lam's portfolio homepage." />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://kietlam.me/404.html">
+
+    <!-- Theme color for mobile browser chrome -->
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://ui-avatars.com https://placehold.co data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'none';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +44,7 @@
 
 <body
     class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-primary-500 selection:text-white">
+    <div id="toggle-root"></div>
     <div class="min-h-screen flex flex-col items-center justify-center px-4">
         <div class="text-center">
             <div class="mb-8">

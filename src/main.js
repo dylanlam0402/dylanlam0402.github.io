@@ -7,13 +7,20 @@ import { renderExperience } from './sections/experience.js';
 import { renderProjects } from './sections/projects.js';
 import { renderFooter } from './sections/footer.js';
 
+function setupScrollToTop() {
+    const btn = document.getElementById('scroll-to-top');
+    if (btn) {
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+}
+
 function renderPortfolio() {
     const root = document.getElementById('root');
     if (!root) return;
 
     root.innerHTML = `
     ${renderHero(PROFILE_DATA)}
-    <main>
+    <main id="main-content">
       ${renderAbout(PROFILE_DATA)}
       ${renderExperience(PROFILE_DATA)}
       ${renderProjects(PROFILE_DATA)}
@@ -22,6 +29,7 @@ function renderPortfolio() {
   `;
 
     setupThemeToggle();
+    setupScrollToTop();
 }
 
 if (document.readyState === 'loading') {

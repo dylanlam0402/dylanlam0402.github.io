@@ -8,11 +8,11 @@ on:
 permissions:
   contents: read
   pages: write
-  id-token: write
+  id-token: write  # Required for GitHub's OIDC-based Pages deploy (passwordless auth).
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: false  # Don't interrupt in-flight deploys; let them finish.
 
 jobs:
   build:
@@ -32,6 +32,8 @@ jobs:
         with:
           path: dist
 
+  # Separate deploy job is the canonical GitHub Pages pattern — artifact upload
+  # and OIDC-authenticated deploy must run as distinct jobs.
   deploy:
     needs: build
     runs-on: ubuntu-latest
