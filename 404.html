@@ -1,68 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 Not Found | Kiet Lam</title>
-    <meta name="description"
-        content="Page not found - This page does not exist or has been moved. Return to Kiet Lam's portfolio homepage." />
-    <meta name="robots" content="noindex">
-    <link rel="canonical" href="https://kietlam.me/404.html">
-
-    <!-- Theme color for mobile browser chrome -->
-    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
-
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://ui-avatars.com https://placehold.co data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'none';">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        media="print" onload="this.media='all';this.onload=null">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    </noscript>
-
-    <script>
-        // Initialize theme IMMEDIATELY to prevent flash of wrong theme (FOUC)
-        (function () {
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        })();
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — Kiet Lam</title>
+  <style>
+    body { background: #000; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; flex-direction: column; gap: 1rem; }
+    a { color: #62e0ff; }
+  </style>
 </head>
-
-<body
-    class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-primary-500 selection:text-white">
-    <div id="toggle-root"></div>
-    <div class="min-h-screen flex flex-col items-center justify-center px-4">
-        <div class="text-center">
-            <div class="mb-8">
-                <span
-                    class="inline-block px-6 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 rounded-full text-lg font-semibold shadow">404</span>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-slate-900 dark:text-white">Page Not Found</h1>
-            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-xl mx-auto">Sorry, the page you
-                are looking for does not exist or has been moved.</p>
-            <a href="/"
-                class="inline-block px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-semibold shadow-lg transition-all">Go
-                Home</a>
-        </div>
-        <footer class="mt-20 text-slate-400 text-sm text-center w-full">
-            &copy; <span id="year"></span> Kiet Lam. All rights reserved.
-        </footer>
-    </div>
-    <script type="module" src="/src/404.js"></script>
+<body>
+  <h1>404 — Page Not Found</h1>
+  <a href="/">← Back to kietlam.me</a>
 </body>
-
 </html>
