@@ -10,83 +10,101 @@ npm run build    # Production build to dist/
 npm run preview  # Preview the built dist/ locally
 ```
 
-There is no test suite, linter, or formatter configured.
+There is no JS test runner, linter, or formatter configured. Feature-level test cases live as markdown checklists under `tests/` and are verified by the `visual-qa` subagent via Playwright MCP (see Harness below).
+
+## Vibe-coding harness — `/ship`
+
+End-to-end automation with cost-optimized orchestrator/worker split. Input is a feature requirement, output is an open GitHub PR. Invoke via the `ship` skill (`.claude/skills/ship/SKILL.md`).
+
+**Architecture:** Opus orchestrator (this main session) plans and decides. Sonnet workers do the verbose work. Handoff is via `.claude/plans/ship-<slug>/{plan.md, state.json, log/}` — never via re-explaining context.
+
+| Role | Model | Job |
+|---|---|---|
+| Orchestrator | Opus 4.7 | Plan, sequence stages, read state, judge gates |
+| `dev-worker` | Sonnet 4.6 | Implement code per plan; update state |
+| `test-worker` | Sonnet 4.6 | Drive Playwright MCP per plan; update state |
+| `code-reviewer` | Sonnet 4.6 | Audit diff against invariants in this file |
+
+**Recommended hands-off invocation:**
+```text
+/goal Use the /ship skill to deliver "<requirement>". Goal is met when a GitHub PR URL has been reported and state.json shows stage=done. Stop after 25 turns.
+```
+
+Pair with auto mode for fully unattended runs.
+
+**Pipeline:** plan (orchestrator) → isolate worktree → implement (dev-worker loop) → verify (test-worker, both themes) → review (code-reviewer) → ship (orchestrator). Per-gate 3-strike safety cap. `state.json` is the resume key.
+
+**Token discipline:** orchestrator never reads full diffs (uses `git diff --stat`). Workers return ≤10-line summaries; detail goes to `log/*.md`. Worker prompts pass file paths, not contents.
+
+Project-level permissions and the CNAME-protection hook live in `.claude/settings.json`.
 
 ## Architecture
 
-Personal portfolio site (Kiet Lam — Senior Data Engineer) deployed to GitHub Pages at `kietlam.me`. Pure static site built with **Vite + Tailwind CSS v4 + vanilla JS** — no framework, no backend.
+Personal portfolio site (Kiet Lam — Senior Data Engineer) deployed to GitHub Pages at `kietlam.me`. Static site built with **React 19 + Vite + Tailwind CSS v4** — no backend. 3D visuals via **Three.js / @react-three/fiber**. Animations via **GSAP + ScrollTrigger**.
 
-### Multi-page entry points
+### Single-page app
 
-`vite.config.js` declares two Rollup inputs:
-- `index.html` → loads `src/main.js` (portfolio)
-- `404.html` → loads `src/404.js` (error page)
+`vite.config.js` has a single entry point:
+- `index.html` → loads `src/main.jsx` (React root)
 
-Both HTML files are slim shells. The 404 page reuses the styles and theme module but has no section renderers.
+`404.html` is a standalone static error page (no React, no JS module).
 
-### Single source of truth: `src/data/profile.js`
+### Content sources
 
-All portfolio content (name, socials, skills, experience, projects, etc.) lives in the `PROFILE_DATA` export. Sections read from this object — do not hardcode content in section files. Shape:
-
-```js
-{ name, title, tagline, avatarUrl, contactEmail, about, aboutExtra,
-  socials: [{ platform, url, displayText }],
-  skills:  [{ category, items }],
-  experience: [{ company, role, period, description: string[], logoUrl }],
-  projects:   [{ title, description, techStack: string[], imageUrl, repoUrl: string|null, liveUrl: string|null }] }
-```
-
-### Rendering pattern
-
-Each file in `src/sections/` exports a `renderX(data)` function that returns an **HTML string** (template literal with `.map().join('')` for repeats). `src/main.js` concatenates them into `root.innerHTML`. There is no virtual DOM, no reactivity, no event delegation — interactivity is wired up manually after render (see `setupThemeToggle()`).
-
-To add a section: create `src/sections/foo.js` exporting `renderFoo(data)`, add any new fields to `PROFILE_DATA`, then import and concatenate it inside `renderPortfolio()` in `src/main.js`.
+- **`src/constants/index.js`** — all portfolio content used by sections (navLinks, words, counterItems, abilities, expCards, techStackIcons, socialImgs, projects, etc.)
+- **`src/data/profile.js`** — `PROFILE_DATA` export (legacy reference; constants/index.js is the live source for React sections)
 
 ### Module map
 
 | File | Responsibility |
 |---|---|
-| `src/main.js` | Entry for `index.html`; calls all section renderers and wires up interactivity |
-| `src/404.js` | Entry for `404.html`; renders theme toggle, sets footer year |
-| `src/data/profile.js` | `PROFILE_DATA` — single source of truth for all portfolio content |
-| `src/sections/hero.js` | `renderHero(data)` — avatar, name, title, socials, CTA |
-| `src/sections/about.js` | `renderAbout(data)` — bio text and skills grid |
-| `src/sections/experience.js` | `renderExperience(data)` — zig-zag timeline of jobs |
-| `src/sections/projects.js` | `renderProjects(data)` — featured project cards |
-| `src/sections/footer.js` | `renderFooter(data)` — contact section and scroll-to-top |
-| `src/sections/themeToggle.js` | `renderThemeToggle()` — fixed theme-toggle button (used by both pages) |
-| `src/icons/index.js` | SVG registry (`icons` map) + `getIconSvg(platform)`. **Add a new entry here when adding a new social platform.** |
-| `src/theme/index.js` | `setupThemeToggle()` — wires click handler, manages `aria-pressed`, sets icon. Owns `STORAGE_KEY = 'color-theme'` (also hardcoded in both HTML FOUC scripts — **must be kept in sync**). |
-| `src/utils/escape.js` | `escapeHtml(str)` and `safeUrl(url)` — used by all section renderers to prevent XSS |
-| `src/styles/main.css` | Tailwind v4 entry; `@theme` palette tokens; `@custom-variant dark`; `@layer components` (`.card`, `.section`, `.section-heading`) |
+| `src/main.jsx` | React 19 createRoot entry |
+| `src/App.jsx` | Composes all section components |
+| `src/index.css` | Tailwind v4 entry; `@theme` palette; component layers |
+| `src/constants/index.js` | All content data (single source of truth for sections) |
+| `src/components/NavBar.jsx` | Sticky navbar with scroll detection |
+| `src/components/Button.jsx` | CTA button with animated arrow |
+| `src/components/AnimatedCounter.jsx` | Scroll-triggered counting animation |
+| `src/components/GlowCard.jsx` | Card with mouse-tracking glow border |
+| `src/components/TitleHeader.jsx` | Section title + subtitle header |
+| `src/components/ExpContent.jsx` | Experience content layout helper |
+| `src/components/models/hero_models/` | Three.js Room, Lights, Particles, HeroExperience canvas |
+| `src/components/models/contact/` | Three.js Computer model + ContactExperience canvas |
+| `src/components/models/tech_logos/` | Three.js TechIconCardExperience canvas |
+| `src/sections/Hero.jsx` | Hero section — word slider, 3D room, counters |
+| `src/sections/ShowcaseSection.jsx` | Projects showcase (3 cards) |
+| `src/sections/LogoShowcase.jsx` | Marquee of company/tech logos |
+| `src/sections/FeatureCards.jsx` | 3 ability/feature cards |
+| `src/sections/Experience.jsx` | Timeline of work experience with GlowCards |
+| `src/sections/TechStack.jsx` | 5 tech stack 3D icon cards |
+| `src/sections/Contact.jsx` | Contact form + 3D computer model |
+| `src/sections/Footer.jsx` | Footer with social icons and copyright |
 
 ### Conventions
 
-- **`null` for missing links:** `projects[].repoUrl` and `projects[].liveUrl` use `null` to mean "no link". The renderer suppresses the action footer when both are `null`. Do not use `"#"` — it renders as a dead link.
-- **`socials[].platform` coupling:** The value must match a key in `src/icons/index.js`. If you add a new social platform, register its SVG there first.
-- **`experience[].description` is an array of strings**, not a single string. Each entry renders as a `<li>` bullet.
-- **All asset URLs in `PROFILE_DATA`** are root-relative (resolved against `public/`). Example: `avatarUrl: "profile.webp"` maps to `public/profile.webp`.
-- **`color-theme` storage key** appears in three places: `src/theme/index.js` (`STORAGE_KEY`), the FOUC script in `index.html`, and the FOUC script in `404.html`. **If you rename it, update all three.**
+- **Content lives in `src/constants/index.js`** — do not hardcode content in section files. Add new data fields here first.
+- **3D models** are `.glb` files in `public/models/` loaded via `@react-three/drei`'s `useGLTF`.
+- **No React Router** — this is a single-page scroll site with anchor links only.
+- **No theme toggle** — dark-only site; background is always black.
+- **`null` for missing links** — `projects[].liveUrl` uses `null` for "no link". The renderer suppresses the link when null.
 
 ### Styling: Tailwind v4
 
-- Imported via `@import "tailwindcss"` in `src/styles/main.css` (build-time plugin `@tailwindcss/vite`, not CDN).
-- Theme tokens (`--color-primary-*`, `--font-sans`) defined in an `@theme` block in `main.css`.
-- Dark mode uses `@custom-variant dark (&:where(.dark, .dark *))` with the `dark:` prefix on utilities. Toggled by adding/removing `dark` on `<html>`; persisted in `localStorage` under key `color-theme`.
-- Reusable patterns extracted to `@layer components`: `.card`, `.section`, `.section-heading`.
+- Imported via `@import "tailwindcss"` in `src/index.css` (build-time plugin `@tailwindcss/vite`, not CDN).
+- Theme tokens defined in an `@theme` block in `index.css`.
+- Dark mode is always on — no toggle, no `dark:` prefix needed for base styles.
+- Reusable patterns in `@layer components`: `.card-border`, `.section-padding`, `.hero-layout`, etc.
 
-### FOUC prevention (do not break this)
+### GSAP animations
 
-Both `index.html` and `404.html` have an inline IIFE `<script>` in `<head>` that reads `localStorage` and sets the `dark` class on `<html>` **before** any rendering. This must stay inline and synchronous — ES modules are deferred, so moving it into `src/` would re-introduce the flash. The theme key is shared across both pages.
+- `ScrollTrigger` registered at the top of each section that uses scroll-based animations.
+- `useGSAP` hook from `@gsap/react` manages cleanup automatically.
 
 ### Performance invariants (do not remove without measuring)
 
-- **Inline FOUC script** — must run before any section renderer reads `<html>.classList`.
-- **`<link rel="preconnect">`** to Google Fonts domains — reduces DNS/TLS latency.
-- **`<link rel="preload" as="image" href="profile.webp">`** — LCP optimisation for hero avatar.
-- **Inter font via `media="print"` swap trick** — non-blocking font load; `<noscript>` fallback included.
-- **`fetchpriority="high"`** on hero `<img>` — boosts avatar in browser fetch queue.
-- **`loading="lazy" decoding="async"`** on all below-the-fold images — defers off-screen fetches.
+- **`<link rel="preconnect">`** to Google Fonts domains in `index.html`.
+- **`<link rel="preload" as="image" href="/profile.webp">`** in `index.html` — LCP optimisation.
+- **`loading="lazy"`** on below-the-fold images.
 
 ### `public/` assets
 
@@ -99,7 +117,9 @@ Files here are copied verbatim to `dist/` and served from the root path.
 | `robots.txt` | Allows all crawlers; points at sitemap |
 | `sitemap.xml` | **Hand-maintained** — bump `<lastmod>` dates whenever content changes |
 | `favicon.ico` | Site icon |
-| `profile.jpg` / `profile.webp` | Hero avatar (webp preferred) |
+| `profile.jpg` / `profile.webp` | Hero avatar |
+| `images/` | All section images (projects, experience, logos, icons) |
+| `models/` | All `.glb` 3D model files |
 
 ## Deployment
 
