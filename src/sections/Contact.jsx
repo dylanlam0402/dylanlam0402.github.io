@@ -1,10 +1,39 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 
 import TitleHeader from "../components/TitleHeader";
 import ContactExperience from "../components/models/contact/ContactExperience";
+import { FallbackScene } from "../components/models/contact/SplineContactScene";
+
+class SplineErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      const scrollToForm = () => {
+        const el = document.getElementById('name');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+      return (
+        <div
+          className="bg-[#cd7c2e] w-full h-full rounded-3xl overflow-hidden cursor-pointer"
+          onClick={scrollToForm}
+        >
+          <FallbackScene />
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,8 +48,13 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setForm({ name: "", email: "", message: "" });
+    const subject = encodeURIComponent(`Portfolio Contact: ${form.name}`);
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
+    window.open(`mailto:dylanlam0402@gmail.com?subject=${subject}&body=${body}`);
+    setSubmitted(true);
     setLoading(false);
+    setForm({ name: "", email: "", message: "" });
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
@@ -80,7 +114,7 @@ const Contact = () => {
                   <div className="cta-button group">
                     <div className="bg-circle" />
                     <p className="text">
-                      {loading ? "Sending..." : "Send Message"}
+                      {submitted ? "Email app opened!" : loading ? "Sending..." : "Send Message"}
                     </p>
                     <div className="arrow-wrapper">
                       <img src="/images/arrow-down.svg" alt="arrow" />
@@ -92,7 +126,9 @@ const Contact = () => {
           </div>
           <div className="xl:col-span-7 min-h-96">
             <div className="bg-[#cd7c2e] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
-              <ContactExperience />
+              <SplineErrorBoundary>
+                <ContactExperience />
+              </SplineErrorBoundary>
             </div>
           </div>
         </div>
