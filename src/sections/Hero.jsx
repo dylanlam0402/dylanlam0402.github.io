@@ -4,7 +4,7 @@ import gsap from "gsap";
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import { words } from "../constants";
-import HeroExperience from "../components/models/hero_models/HeroExperience";
+import SplineHeroScene from "../components/models/hero_models/SplineHeroScene";
 
 const Hero = () => {
   useGSAP(() => {
@@ -66,7 +66,7 @@ const Hero = () => {
         {/* RIGHT: 3D Model or Visual */}
         <figure>
           <div className="hero-3d-layout">
-            <HeroExperience />
+            <SplineHeroScene />
           </div>
         </figure>
       </div>
