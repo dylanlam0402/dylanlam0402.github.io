@@ -39,7 +39,7 @@ export function About() {
                   alt={PROFILE_DATA.name}
                   className="w-full h-auto rounded-xl"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />
               </motion.div>

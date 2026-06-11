@@ -13,13 +13,13 @@ const CONTACT_ITEMS = [
     icon: Linkedin,
     label: 'LinkedIn',
     href: PROFILE_DATA.socials.find(s => s.platform === 'linkedin')!.url,
-    display: 'linkedin.com/in/kietlam96',
+    display: PROFILE_DATA.socials.find(s => s.platform === 'linkedin')!.displayText,
   },
   {
     icon: Github,
     label: 'GitHub',
     href: PROFILE_DATA.socials.find(s => s.platform === 'github')!.url,
-    display: 'github.com/dylanlam0402',
+    display: PROFILE_DATA.socials.find(s => s.platform === 'github')!.displayText,
   },
 ];
 

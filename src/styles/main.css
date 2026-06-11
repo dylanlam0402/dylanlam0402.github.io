@@ -45,7 +45,10 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
   html { font-size: var(--font-size); scroll-behavior: smooth; }
 }
 

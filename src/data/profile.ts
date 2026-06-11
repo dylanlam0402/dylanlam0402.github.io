@@ -78,12 +78,12 @@ export const PROFILE_DATA: ProfileData = {
     {
       platform: "linkedin",
       url: "https://www.linkedin.com/in/kietlam96",
-      displayText: "LinkedIn",
+      displayText: "linkedin.com/in/kietlam96",
     },
     {
       platform: "github",
       url: "https://github.com/dylanlam0402",
-      displayText: "GitHub",
+      displayText: "github.com/dylanlam0402",
     },
     {
       platform: "email",

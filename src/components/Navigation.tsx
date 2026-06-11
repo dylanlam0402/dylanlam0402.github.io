@@ -19,7 +19,8 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window === 'undefined') return 'dark';
-    return (localStorage.getItem(STORAGE_KEY) as 'dark' | 'light') ?? 'dark';
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored === 'light' || stored === 'dark' ? stored : 'dark';
   });
 
   useEffect(() => {
