@@ -14,70 +14,74 @@ There is no test suite, linter, or formatter configured.
 
 ## Architecture
 
-Personal portfolio site (Kiet Lam — Senior Data Engineer) deployed to GitHub Pages at `kietlam.me`. Pure static site built with **Vite + Tailwind CSS v4 + vanilla JS** — no framework, no backend.
+Personal portfolio site (Kiet Lam — Senior Data Engineer) deployed to GitHub Pages at `kietlam.me`. Static site built with **Vite + Tailwind CSS v4 + React 18 + TypeScript** — no backend.
 
 ### Multi-page entry points
 
-`vite.config.js` declares two Rollup inputs:
-- `index.html` → loads `src/main.js` (portfolio)
-- `404.html` → loads `src/404.js` (error page)
+`vite.config.ts` declares two Rollup inputs:
+- `index.html` → loads `src/main.tsx` (portfolio React app)
+- `404.html` → loads `src/404.tsx` (error page React component)
 
-Both HTML files are slim shells. The 404 page reuses the styles and theme module but has no section renderers.
+### Single source of truth: `src/data/profile.ts`
 
-### Single source of truth: `src/data/profile.js`
+All portfolio content lives in the `PROFILE_DATA` export (TypeScript-typed). Components read from this object — do not hardcode content in component files. Shape:
 
-All portfolio content (name, socials, skills, experience, projects, etc.) lives in the `PROFILE_DATA` export. Sections read from this object — do not hardcode content in section files. Shape:
-
-```js
-{ name, title, tagline, avatarUrl, contactEmail, about, aboutExtra,
+```ts
+{ name, title, tagline, avatarUrl, contactEmail, about, aboutExtra, location,
   socials: [{ platform, url, displayText }],
-  skills:  [{ category, items }],
-  experience: [{ company, role, period, description: string[], logoUrl }],
-  projects:   [{ title, description, techStack: string[], imageUrl, repoUrl: string|null, liveUrl: string|null }] }
+  skills:  [{ category, items: string[] }],
+  experience: [{ company, role, period, description: string[] }],
+  projects:   [{ title, description, techStack: string[], imageUrl, repoUrl: string|null, liveUrl: string|null }],
+  education:  [{ degree, institution, period }],
+  certifications: [{ name, issuer, issued, expires, credentialId? }],
+  achievements: [{ value, suffix, label }] }
 ```
 
 ### Rendering pattern
 
-Each file in `src/sections/` exports a `renderX(data)` function that returns an **HTML string** (template literal with `.map().join('')` for repeats). `src/main.js` concatenates them into `root.innerHTML`. There is no virtual DOM, no reactivity, no event delegation — interactivity is wired up manually after render (see `setupThemeToggle()`).
+React 18 component tree rooted at `src/App.tsx`. Each `src/components/*.tsx` file exports a named component. `motion/react` handles all animations (scroll-triggered via `whileInView`, entrance via `initial`/`animate`).
 
-To add a section: create `src/sections/foo.js` exporting `renderFoo(data)`, add any new fields to `PROFILE_DATA`, then import and concatenate it inside `renderPortfolio()` in `src/main.js`.
+To add a section: create `src/components/Foo.tsx`, add any new fields to `PROFILE_DATA` + `ProfileData` interface in `profile.ts`, import and render inside `App.tsx`.
 
 ### Module map
 
 | File | Responsibility |
 |---|---|
-| `src/main.js` | Entry for `index.html`; calls all section renderers and wires up interactivity |
-| `src/404.js` | Entry for `404.html`; renders theme toggle, sets footer year |
-| `src/data/profile.js` | `PROFILE_DATA` — single source of truth for all portfolio content |
-| `src/sections/hero.js` | `renderHero(data)` — avatar, name, title, socials, CTA |
-| `src/sections/about.js` | `renderAbout(data)` — bio text and skills grid |
-| `src/sections/experience.js` | `renderExperience(data)` — zig-zag timeline of jobs |
-| `src/sections/projects.js` | `renderProjects(data)` — featured project cards |
-| `src/sections/footer.js` | `renderFooter(data)` — contact section and scroll-to-top |
-| `src/sections/themeToggle.js` | `renderThemeToggle()` — fixed theme-toggle button (used by both pages) |
-| `src/icons/index.js` | SVG registry (`icons` map) + `getIconSvg(platform)`. **Add a new entry here when adding a new social platform.** |
-| `src/theme/index.js` | `setupThemeToggle()` — wires click handler, manages `aria-pressed`, sets icon. Owns `STORAGE_KEY = 'color-theme'` (also hardcoded in both HTML FOUC scripts — **must be kept in sync**). |
-| `src/utils/escape.js` | `escapeHtml(str)` and `safeUrl(url)` — used by all section renderers to prevent XSS |
-| `src/styles/main.css` | Tailwind v4 entry; `@theme` palette tokens; `@custom-variant dark`; `@layer components` (`.card`, `.section`, `.section-heading`) |
+| `src/main.tsx` | React DOM root entry point |
+| `src/404.tsx` | React 404 page entry point |
+| `src/App.tsx` | Top-level component, renders all sections in order |
+| `src/data/profile.ts` | `PROFILE_DATA` — single source of truth for all portfolio content |
+| `src/components/Navigation.tsx` | Fixed glassmorphic nav, mobile slide-in menu, dark/light toggle |
+| `src/components/Hero.tsx` | Canvas particle animation (80 particles + connecting lines), animated intro |
+| `src/components/About.tsx` | Profile image, bio, focus area pills |
+| `src/components/Skills.tsx` | Category cards with skill pill tags |
+| `src/components/Experience.tsx` | Timeline layout with company/role/highlights |
+| `src/components/Projects.tsx` | Image cards with tech tags and live links |
+| `src/components/Education.tsx` | Degree and certification cards |
+| `src/components/Achievements.tsx` | Animated countup stat cards (react-countup) |
+| `src/components/Testimonials.tsx` | Coming soon placeholder |
+| `src/components/Contact.tsx` | Email/LinkedIn/GitHub contact cards |
+| `src/components/Footer.tsx` | Name, tagline, copyright |
+| `src/styles/main.css` | Tailwind v4 entry, glassmorphism utilities (`.glass`, `.glass-strong`), dark/light CSS vars |
 
 ### Conventions
 
-- **`null` for missing links:** `projects[].repoUrl` and `projects[].liveUrl` use `null` to mean "no link". The renderer suppresses the action footer when both are `null`. Do not use `"#"` — it renders as a dead link.
-- **`socials[].platform` coupling:** The value must match a key in `src/icons/index.js`. If you add a new social platform, register its SVG there first.
-- **`experience[].description` is an array of strings**, not a single string. Each entry renders as a `<li>` bullet.
+- **`null` for missing links:** `projects[].repoUrl` and `projects[].liveUrl` use `null` to mean "no link". Do not use `"#"`.
+- **`experience[].description` is an array of strings**, not a single string. Each entry renders as a bullet point.
 - **All asset URLs in `PROFILE_DATA`** are root-relative (resolved against `public/`). Example: `avatarUrl: "profile.webp"` maps to `public/profile.webp`.
-- **`color-theme` storage key** appears in three places: `src/theme/index.js` (`STORAGE_KEY`), the FOUC script in `index.html`, and the FOUC script in `404.html`. **If you rename it, update all three.**
+- **`color-theme` storage key** appears in `src/components/Navigation.tsx` (`STORAGE_KEY`) and the FOUC scripts in both `index.html` and `404.html`. **If you rename it, update all three.**
 
-### Styling: Tailwind v4
+### Styling: Tailwind v4 + Glassmorphism
 
 - Imported via `@import "tailwindcss"` in `src/styles/main.css` (build-time plugin `@tailwindcss/vite`, not CDN).
-- Theme tokens (`--color-primary-*`, `--font-sans`) defined in an `@theme` block in `main.css`.
-- Dark mode uses `@custom-variant dark (&:where(.dark, .dark *))` with the `dark:` prefix on utilities. Toggled by adding/removing `dark` on `<html>`; persisted in `localStorage` under key `color-theme`.
-- Reusable patterns extracted to `@layer components`: `.card`, `.section`, `.section-heading`.
+- Design: dark background `#050814`, purple accent gradient `#7C3AED` → `#9333EA`.
+- Theme vars (`--background`, `--foreground`, `--primary`, etc.) defined in `:root`, `.dark`, `.light` blocks in `main.css`. Toggled by adding `.dark` or `.light` class on `<html>`.
+- Glassmorphism: `.glass` (70% opacity blur-20) and `.glass-strong` (90% opacity blur-30) utility classes defined in `main.css`. Light mode variants included.
+- Persisted in `localStorage` under key `color-theme`. Default is dark.
 
 ### FOUC prevention (do not break this)
 
-Both `index.html` and `404.html` have an inline IIFE `<script>` in `<head>` that reads `localStorage` and sets the `dark` class on `<html>` **before** any rendering. This must stay inline and synchronous — ES modules are deferred, so moving it into `src/` would re-introduce the flash. The theme key is shared across both pages.
+Both `index.html` and `404.html` have an inline IIFE `<script>` in `<head>` that reads `localStorage` and sets the `dark` or `light` class on `<html>` **before** React renders. This must stay inline and synchronous — ES modules are deferred, so moving it into `src/` would re-introduce the flash. The theme key is shared across both pages.
 
 ### Performance invariants (do not remove without measuring)
 
