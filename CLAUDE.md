@@ -8,9 +8,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev      # Vite dev server with HMR
 npm run build    # Production build to dist/
 npm run preview  # Preview the built dist/ locally
+npm run typecheck   # tsc --noEmit (vite build does NOT type-check)
+npm run test:smoke  # Playwright smoke test of dist/ — run `npm run build` first
 ```
 
-There is no test suite, linter, or formatter configured.
+There is no unit test suite, linter, or formatter. `scripts/smoke-test.mjs` serves `dist/` and checks, at desktop and phone widths: no same-origin console/page errors or 4xx/5xx, all section ids present, no horizontal overflow, theme toggle works and persists, avatar keeps `fetchpriority="high"`, and `404.html` renders. If you add or rename a section, update `EXPECTED_SECTIONS` there.
+
+`src/react-html.d.ts` adds the lowercase `fetchpriority` img attribute to React 18's types (React 18 doesn't forward camelCase `fetchPriority`). Delete it after upgrading to React 19.
 
 ## Architecture
 
@@ -106,5 +110,11 @@ Files here are copied verbatim to `dist/` and served from the root path.
 | `profile.jpg` / `profile.webp` | Hero avatar (webp preferred) |
 
 ## Deployment
+
+Workflows in `.github/workflows/`:
+- `ci.yml` — typecheck + build + smoke test on every PR and push to `main`. This is the merge gate.
+- `claude-code-review.yml` — Claude Code Action posts an AI review on each PR (advisory, not a gate).
+- `claude.yml` — runs Claude Code Action when someone mentions `@claude` in issues/PRs.
+- `deploy.yml` — see below.
 
 `.github/workflows/deploy.yml` builds and deploys `dist/` to GitHub Pages on push to `main`. Files in `public/` (including `CNAME` → `kietlam.me` and `.nojekyll`) are copied verbatim to `dist/`. The repo's Pages source must be set to "GitHub Actions".

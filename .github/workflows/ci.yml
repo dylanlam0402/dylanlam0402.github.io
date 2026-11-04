@@ -1,0 +1,43 @@
+name: CI
+
+# Deterministic quality gate for every PR (and main). Complements the AI review
+# in claude-code-review.yml: this job must pass before merging.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true  # A newer push to the same PR supersedes older runs.
+
+jobs:
+  verify:
+    name: Typecheck, build, smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser smoke test
+        run: npm run test:smoke
