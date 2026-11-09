@@ -35,8 +35,8 @@ export function Contact() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">Get In Touch</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto mb-4" />
-          <p className="text-[#9CA3AF] max-w-2xl mx-auto text-sm sm:text-base">
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto mb-4" />
+          <p className="text-[#94A3B8] max-w-2xl mx-auto text-sm sm:text-base">
             Have a project in mind or want to collaborate? I'd love to hear from you!
           </p>
         </motion.div>
@@ -55,17 +55,17 @@ export function Contact() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 whileHover={{ y: -8, scale: 1.03 }}
-                className="glass-strong rounded-2xl p-8 text-center group hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-all"
+                className="glass-strong rounded-2xl p-8 text-center group hover:shadow-[0_0_30px_rgba(37,99,235,0.2)] transition-all"
               >
                 <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
-                  className="inline-flex p-4 bg-gradient-to-br from-[#7C3AED]/20 to-[#9333EA]/20 rounded-2xl mb-4 group-hover:from-[#7C3AED]/40 group-hover:to-[#9333EA]/40 transition-all"
+                  className="inline-flex p-4 bg-gradient-to-br from-[#2563EB]/20 to-[#3B9EFF]/20 rounded-2xl mb-4 group-hover:from-[#2563EB]/40 group-hover:to-[#3B9EFF]/40 transition-all"
                 >
-                  <Icon className="w-8 h-8 text-[#9333EA]" />
+                  <Icon className="w-8 h-8 text-[#3B9EFF]" />
                 </motion.div>
-                <h3 className="text-lg mb-2 text-[#9333EA]">{item.label}</h3>
-                <p className="text-[#9CA3AF] text-sm break-all">{item.display}</p>
+                <h3 className="text-lg mb-2 text-[#3B9EFF]">{item.label}</h3>
+                <p className="text-[#94A3B8] text-sm break-all">{item.display}</p>
               </motion.a>
             );
           })}
@@ -78,8 +78,8 @@ export function Contact() {
           transition={{ delay: 0.4 }}
           className="mt-8 glass-strong rounded-2xl p-8 text-center"
         >
-          <h3 className="text-xl mb-3 text-[#9333EA]">Let's Create Something Amazing</h3>
-          <p className="text-[#9CA3AF] text-sm leading-relaxed max-w-xl mx-auto">
+          <h3 className="text-xl mb-3 text-[#3B9EFF]">Let's Create Something Amazing</h3>
+          <p className="text-[#94A3B8] text-sm leading-relaxed max-w-xl mx-auto">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
         </motion.div>

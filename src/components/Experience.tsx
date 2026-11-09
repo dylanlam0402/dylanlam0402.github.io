@@ -14,12 +14,12 @@ export function Experience() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">Experience</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto" />
         </motion.div>
 
         <div className="relative">
           {/* Vertical timeline line */}
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#7C3AED] to-[#9333EA] hidden md:block" />
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#2563EB] to-[#3B9EFF] hidden md:block" />
 
           <div className="space-y-12">
             {PROFILE_DATA.experience.map((exp, idx) => (
@@ -37,26 +37,26 @@ export function Experience() {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.2 + 0.2 }}
-                  className="absolute -left-[82px] top-8 w-5 h-5 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#9333EA] border-4 border-background hidden md:block z-10"
+                  className="absolute -left-[82px] top-8 w-5 h-5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] border-4 border-background hidden md:block z-10"
                 />
 
-                <div className="glass-strong rounded-2xl p-6 md:p-8 hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-all">
+                <div className="glass-strong rounded-2xl p-6 md:p-8 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)] transition-all">
                   <div className="space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                       <motion.div
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.5 }}
-                        className="p-3 bg-gradient-to-br from-[#7C3AED]/20 to-[#9333EA]/20 rounded-xl w-fit"
+                        className="p-3 bg-gradient-to-br from-[#2563EB]/20 to-[#3B9EFF]/20 rounded-xl w-fit"
                       >
-                        <Briefcase className="w-6 h-6 text-[#9333EA]" />
+                        <Briefcase className="w-6 h-6 text-[#3B9EFF]" />
                       </motion.div>
                       <div>
                         <h3 className="text-xl md:text-2xl mb-1 text-foreground">{exp.role}</h3>
-                        <p className="text-[#9333EA]">{exp.company}</p>
+                        <p className="text-[#3B9EFF]">{exp.company}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm text-[#9CA3AF]">
+                    <div className="flex items-center gap-2 text-sm text-[#94A3B8]">
                       <Calendar className="w-4 h-4" />
                       {exp.period}
                     </div>
@@ -71,8 +71,8 @@ export function Experience() {
                           transition={{ delay: idx * 0.1 + hIdx * 0.05 }}
                           className="flex items-start gap-3"
                         >
-                          <CheckCircle2 className="w-5 h-5 text-[#9333EA] mt-0.5 flex-shrink-0" />
-                          <p className="text-[#9CA3AF] text-sm leading-relaxed">{point}</p>
+                          <CheckCircle2 className="w-5 h-5 text-[#3B9EFF] mt-0.5 flex-shrink-0" />
+                          <p className="text-[#94A3B8] text-sm leading-relaxed">{point}</p>
                         </motion.div>
                       ))}
                     </div>

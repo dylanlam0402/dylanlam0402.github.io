@@ -22,7 +22,7 @@ export function Achievements() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">Achievements</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto" />
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
@@ -42,9 +42,9 @@ export function Achievements() {
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                   animate={{
                     background: [
-                      'radial-gradient(circle at 0% 0%, rgba(124,58,237,0.1), transparent 50%)',
-                      'radial-gradient(circle at 100% 100%, rgba(147,51,234,0.1), transparent 50%)',
-                      'radial-gradient(circle at 0% 0%, rgba(124,58,237,0.1), transparent 50%)',
+                      'radial-gradient(circle at 0% 0%, rgba(37,99,235,0.1), transparent 50%)',
+                      'radial-gradient(circle at 100% 100%, rgba(59,158,255,0.1), transparent 50%)',
+                      'radial-gradient(circle at 0% 0%, rgba(37,99,235,0.1), transparent 50%)',
                     ],
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
@@ -56,7 +56,7 @@ export function Achievements() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 + 0.3, type: 'spring', stiffness: 200 }}
                   whileHover={{ rotate: 360 }}
-                  className="inline-flex p-6 bg-gradient-to-br from-[#7C3AED] to-[#9333EA] rounded-2xl mb-6 relative z-10"
+                  className="inline-flex p-6 bg-gradient-to-br from-[#2563EB] to-[#3B9EFF] rounded-2xl mb-6 relative z-10"
                 >
                   <Icon className="w-10 h-10 text-white" />
                 </motion.div>
@@ -66,7 +66,7 @@ export function Achievements() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 + 0.5 }}
-                  className="text-5xl mb-4 bg-gradient-to-r from-white to-[#9333EA] bg-clip-text text-transparent relative z-10 font-medium"
+                  className="text-5xl mb-4 bg-gradient-to-r from-white to-[#3B9EFF] bg-clip-text text-transparent relative z-10 font-medium"
                 >
                   {inView && (
                     <CountUp
@@ -78,7 +78,7 @@ export function Achievements() {
                   )}
                 </motion.div>
 
-                <p className="text-[#9CA3AF] relative z-10">{item.label}</p>
+                <p className="text-[#94A3B8] relative z-10">{item.label}</p>
               </motion.div>
             );
           })}

@@ -13,7 +13,7 @@ export function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">Skills & Expertise</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -26,7 +26,7 @@ export function Skills() {
               transition={{ duration: 0.6, delay: catIdx * 0.1 }}
               className="glass-strong rounded-2xl p-6 md:p-8"
             >
-              <h3 className="text-lg md:text-xl mb-6 text-[#9333EA]">{category.category}</h3>
+              <h3 className="text-lg md:text-xl mb-6 text-[#3B9EFF]">{category.category}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.items.map((skill, skillIdx) => (
                   <motion.span
@@ -36,7 +36,7 @@ export function Skills() {
                     viewport={{ once: true }}
                     transition={{ delay: catIdx * 0.05 + skillIdx * 0.04 }}
                     whileHover={{ scale: 1.1, y: -3 }}
-                    className="px-3 py-1.5 bg-gradient-to-r from-[#7C3AED]/20 to-[#9333EA]/20 border border-[#7C3AED]/30 rounded-full text-xs text-foreground cursor-default"
+                    className="px-3 py-1.5 bg-gradient-to-r from-[#2563EB]/20 to-[#3B9EFF]/20 border border-[#2563EB]/30 rounded-full text-xs text-foreground cursor-default"
                   >
                     {skill}
                   </motion.span>

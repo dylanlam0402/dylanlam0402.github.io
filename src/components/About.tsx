@@ -15,7 +15,7 @@ export function About() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">About Me</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -27,7 +27,7 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="relative group order-2 md:order-1"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
             <div className="relative glass-strong rounded-2xl p-2 overflow-hidden">
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -55,21 +55,21 @@ export function About() {
             className="space-y-4 md:space-y-6 order-1 md:order-2"
           >
             <div className="glass-strong rounded-2xl p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl mb-4 text-[#9333EA]">Senior Data Engineer</h3>
-              <p className="text-[#9CA3AF] leading-relaxed text-sm md:text-base">
+              <h3 className="text-xl md:text-2xl mb-4 text-[#3B9EFF]">Senior Data Engineer</h3>
+              <p className="text-[#94A3B8] leading-relaxed text-sm md:text-base">
                 {PROFILE_DATA.about}
               </p>
             </div>
 
             <div className="glass-strong rounded-2xl p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl mb-4 text-[#9333EA]">Location</h3>
-              <p className="text-[#9CA3AF] text-sm md:text-base">
+              <h3 className="text-xl md:text-2xl mb-4 text-[#3B9EFF]">Location</h3>
+              <p className="text-[#94A3B8] text-sm md:text-base">
                 📍 {PROFILE_DATA.location}
               </p>
             </div>
 
             <div className="glass-strong rounded-2xl p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl mb-4 text-[#9333EA]">Focus Areas</h3>
+              <h3 className="text-xl md:text-2xl mb-4 text-[#3B9EFF]">Focus Areas</h3>
               <div className="flex flex-wrap gap-2">
                 {focusAreas.map((item, i) => (
                   <motion.span
@@ -79,7 +79,7 @@ export function About() {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                     whileHover={{ scale: 1.1 }}
-                    className="px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-[#7C3AED]/20 to-[#9333EA]/20 border border-[#7C3AED]/30 rounded-full text-xs md:text-sm text-foreground"
+                    className="px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-[#2563EB]/20 to-[#3B9EFF]/20 border border-[#2563EB]/30 rounded-full text-xs md:text-sm text-foreground"
                   >
                     {item}
                   </motion.span>

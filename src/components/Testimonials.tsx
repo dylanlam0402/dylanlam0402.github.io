@@ -13,7 +13,7 @@ export function Testimonials() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl mb-4 text-foreground">Testimonials</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#7C3AED] to-[#9333EA] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#2563EB] to-[#3B9EFF] mx-auto" />
         </motion.div>
 
         <motion.div
@@ -26,13 +26,13 @@ export function Testimonials() {
           <motion.div
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-            className="inline-flex p-6 bg-gradient-to-br from-[#7C3AED]/20 to-[#9333EA]/20 rounded-full mb-6"
+            className="inline-flex p-6 bg-gradient-to-br from-[#2563EB]/20 to-[#3B9EFF]/20 rounded-full mb-6"
           >
-            <Clock className="w-10 h-10 text-[#9333EA]" />
+            <Clock className="w-10 h-10 text-[#3B9EFF]" />
           </motion.div>
 
-          <h3 className="text-2xl mb-4 text-[#9333EA]">Coming Soon</h3>
-          <p className="text-[#9CA3AF] max-w-md mx-auto text-sm leading-relaxed">
+          <h3 className="text-2xl mb-4 text-[#3B9EFF]">Coming Soon</h3>
+          <p className="text-[#94A3B8] max-w-md mx-auto text-sm leading-relaxed">
             Testimonials from colleagues and clients will be featured here. Check back soon!
           </p>
 
@@ -42,7 +42,7 @@ export function Testimonials() {
                 key={i}
                 animate={{ opacity: [0.2, 1, 0.2] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                className="h-2 w-2 rounded-full bg-gradient-to-r from-[#7C3AED] to-[#9333EA]"
+                className="h-2 w-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#3B9EFF]"
               />
             ))}
           </div>
