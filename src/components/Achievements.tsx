@@ -66,7 +66,7 @@ export function Achievements() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 + 0.5 }}
-                  className="text-5xl mb-4 bg-gradient-to-r from-white to-[#3B9EFF] bg-clip-text text-transparent relative z-10 font-medium"
+                  className="text-5xl mb-4 bg-gradient-to-r from-foreground to-[#2563EB] bg-clip-text text-transparent relative z-10 font-medium"
                 >
                   {inView && (
                     <CountUp

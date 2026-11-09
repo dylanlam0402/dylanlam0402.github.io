@@ -13,26 +13,25 @@ interface Particle {
   hue: number; // 0 = cobalt, 1 = electric blue
 }
 
-const COUNT_DESKTOP = 900;
-const COUNT_MOBILE = 420;
+const MAX_PARTICLES = 1800;
 const FOV = 900;
+const CAM = 400; // camera pull-back; projection factor at z=0 is FOV / (FOV + CAM)
 
-/** Evenly-ish distribute points inside a flattened ellipsoid shell. */
-function makeParticles(count: number): Particle[] {
-  return Array.from({ length: count }, () => {
-    const u = Math.random() * 2 - 1;
-    const t = Math.random() * Math.PI * 2;
-    const r = 0.55 + Math.random() * 0.45;
-    const k = Math.sqrt(1 - u * u);
-    return {
-      hx: Math.cos(t) * k * r * 520,
-      hy: u * r * 300,
-      hz: Math.sin(t) * k * r * 520,
-      ox: 0, oy: 0, oz: 0, vx: 0, vy: 0, vz: 0,
-      size: Math.random() * 1.4 + 0.6,
-      hue: Math.random(),
-    };
-  });
+/** Fill a slab that projects to cover the whole banner (w x h in CSS px). */
+function makeParticles(w: number, h: number): Particle[] {
+  const k = (FOV + CAM) / FOV;
+  const rx = (w / 2) * k * 1.12; // slight overscan so edges stay populated while swaying
+  const ry = (h / 2) * k * 1.12;
+  const rz = 380;
+  const count = Math.min(MAX_PARTICLES, Math.round((w * h) / (w < 768 ? 900 : 1100)));
+  return Array.from({ length: count }, () => ({
+    hx: (Math.random() * 2 - 1) * rx,
+    hy: (Math.random() * 2 - 1) * ry,
+    hz: (Math.random() * 2 - 1) * rz,
+    ox: 0, oy: 0, oz: 0, vx: 0, vy: 0, vz: 0,
+    size: Math.random() * 1.4 + 0.7,
+    hue: Math.random(),
+  }));
 }
 
 export function Hero() {
@@ -51,7 +50,7 @@ export function Hero() {
     // Pointer in CSS px relative to canvas; null when not hovering.
     const pointer = { x: 0, y: 0, active: false, down: false };
     // Rotation: eased toward a target driven by the cursor + drag + idle spin.
-    let yaw = 0, pitch = -0.25, targetYaw = 0, targetPitch = -0.25, idleYaw = 0;
+    let yaw = 0, pitch = 0, targetYaw = 0, targetPitch = 0, idle = 0;
     let dragX = 0, dragY = 0;
 
     function resize() {
@@ -62,8 +61,7 @@ export function Hero() {
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = w < 768 ? COUNT_MOBILE : COUNT_DESKTOP;
-      if (particles.length !== count) particles = makeParticles(count);
+      particles = makeParticles(w, h);
     }
     resize();
 
@@ -75,11 +73,11 @@ export function Hero() {
       pointer.y = e.clientY - rect.top;
       pointer.active = true;
       if (pointer.down) {
-        dragX += e.movementX * 0.004;
-        dragY += e.movementY * 0.004;
+        dragX = Math.max(-0.6, Math.min(0.6, dragX + e.movementX * 0.003));
+        dragY = Math.max(-0.4, Math.min(0.4, dragY + e.movementY * 0.003));
       } else {
-        targetYaw = nx * 0.6;
-        targetPitch = -0.25 + ny * 0.4;
+        targetYaw = nx * 0.35;
+        targetPitch = -ny * 0.25;
       }
     };
     const onLeave = () => { pointer.active = false; pointer.down = false; };
@@ -105,21 +103,20 @@ export function Hero() {
       if (!ctx || !visible) return;
       ctx.clearRect(0, 0, w, h);
 
-      idleYaw += reduceMotion ? 0 : 0.0016;
-      yaw += (targetYaw + idleYaw + dragX - yaw) * 0.05;
+      idle += reduceMotion ? 0 : 0.008;
+      yaw += (targetYaw + Math.sin(idle) * 0.08 + dragX - yaw) * 0.05;
       pitch += (targetPitch + dragY - pitch) * 0.05;
       const cy = Math.cos(yaw), sy = Math.sin(yaw);
       const cp = Math.cos(pitch), sp = Math.sin(pitch);
       const cx = w / 2, cyy = h / 2;
-      const scale = Math.min(1, Math.max(0.55, w / 1280));
-      const radius = (pointer.down ? 190 : 140);
+            const radius = Math.max(150, Math.min(w, h) * (pointer.down ? 0.26 : 0.2));
       const radius2 = radius * radius;
 
       for (const p of particles) {
         // Current model-space position = home + displacement
-        const x = p.hx * scale + p.ox;
-        const y = p.hy * scale + p.oy;
-        const z = p.hz * scale + p.oz;
+        const x = p.hx + p.ox;
+        const y = p.hy + p.oy;
+        const z = p.hz + p.oz;
 
         // Rotate around Y (yaw) then X (pitch)
         const x1 = x * cy + z * sy;
@@ -127,7 +124,7 @@ export function Hero() {
         const y2 = y * cp - z1 * sp;
         const z2 = y * sp + z1 * cp;
 
-        const persp = FOV / (FOV + z2 + 400);
+        const persp = FOV / (FOV + z2 + CAM);
         const sx = cx + x1 * persp;
         const sy2 = cyy + y2 * persp;
 
@@ -151,7 +148,7 @@ export function Hero() {
         p.ox += p.vx; p.oy += p.vy; p.oz += p.vz;
 
         // Draw a short streak oriented along its velocity (stationary => dot)
-        const depth = Math.min(1, Math.max(0.15, persp * 1.1 - 0.2));
+        const depth = Math.min(1, Math.max(0.3, persp * 1.1 - 0.1));
         const speed = Math.hypot(p.vx, p.vy);
         const len = Math.min(10, speed * 2.2);
         const alpha = depth * (0.55 + Math.min(0.6, speed * 0.12));

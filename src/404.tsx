@@ -5,7 +5,7 @@ function NotFound() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="text-center">
-        <h1 className="text-8xl font-medium bg-gradient-to-r from-white via-[#3B9EFF] to-white bg-clip-text text-transparent mb-4">
+        <h1 className="text-8xl font-medium bg-gradient-to-r from-foreground via-[#2563EB] to-foreground bg-clip-text text-transparent mb-4">
           404
         </h1>
         <p className="text-[#94A3B8] text-lg mb-8">Page not found</p>
