@@ -83,12 +83,12 @@ export function Navigation() {
               onClick={toggleTheme}
               whileHover={{ scale: 1.1, rotate: 180 }}
               whileTap={{ scale: 0.9 }}
-              className="hidden lg:flex p-2 rounded-lg hover:bg-[#7C3AED]/10 transition-colors border border-[#1F2937]"
+              className="hidden lg:flex p-2 rounded-lg hover:bg-[#2563EB]/10 transition-colors border border-[#1E2A44]"
               aria-label="Toggle theme"
             >
               {theme === 'dark'
-                ? <Sun className="w-5 h-5 text-[#9333EA]" />
-                : <Moon className="w-5 h-5 text-[#9333EA]" />}
+                ? <Sun className="w-5 h-5 text-[#3B9EFF]" />
+                : <Moon className="w-5 h-5 text-[#3B9EFF]" />}
             </motion.button>
 
             {/* Mobile buttons */}
@@ -97,17 +97,17 @@ export function Navigation() {
                 onClick={toggleTheme}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="p-2 rounded-lg hover:bg-[#7C3AED]/10 border border-[#1F2937]"
+                className="p-2 rounded-lg hover:bg-[#2563EB]/10 border border-[#1E2A44]"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark'
-                  ? <Sun className="w-5 h-5 text-[#9333EA]" />
-                  : <Moon className="w-5 h-5 text-[#9333EA]" />}
+                  ? <Sun className="w-5 h-5 text-[#3B9EFF]" />
+                  : <Moon className="w-5 h-5 text-[#3B9EFF]" />}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setMobileOpen(o => !o)}
-                className="p-2 rounded-lg hover:bg-[#7C3AED]/10 border border-[#1F2937]"
+                className="p-2 rounded-lg hover:bg-[#2563EB]/10 border border-[#1E2A44]"
                 aria-label="Toggle menu"
               >
                 {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
